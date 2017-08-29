@@ -1,5 +1,84 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+<div class="container">
 
-{{outlet}}
+  <div class="row toolbar">
+    <div class="col-md-12">
+      <p class="pull-right">
+        <span class="badge badge">{{unreadMessages}}</span>
+        unread messages
+      </p>
+
+      <a {{action 'toggleComposeMessage'}} class="btn btn-danger">
+        <i class="fa fa-plus"></i>
+      </a>
+
+      <button onclick={{action 'toggleSelectedAll'}} class="btn btn-default">
+        {{#if allSelected}}
+          <i class="fa fa-check-square-o"></i>
+        {{else if anySelected}}
+          <i class="fa fa-minus-square-o"></i>
+        {{else}}
+          <i class="fa fa-square-o"></i>
+        {{/if}}
+      </button>
+
+        <button class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Read</button>
+        <button class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Unread</button>
+
+      <select class="form-control label-select">
+        <option>Apply label</option>
+        <option value="dev">dev</option>
+        <option value="personal">personal</option>
+        <option value="gschool">gschool</option>
+      </select>
+
+      <select class="form-control label-select">
+        <option>Remove label</option>
+        <option value="dev">dev</option>
+        <option value="personal">personal</option>
+        <option value="gschool">gschool</option>
+      </select>
+
+        <button class="btn btn-default" disabled={{if anySelected "" "disable"}}>
+          <i class="fa fa-trash-o"></i>
+        </button>
+
+    </div>
+  </div>
+
+  {{#if showComposeMessage}}
+    {{compose-message}}
+  {{/if}}
+  {{#each model as | message |}}
+
+    <!-- if message unread else change unread to read-->
+    <div class="row message {{if message.read "read" "unread"}}">
+      <div class="col-xs-1">
+        <div class="row">
+          <div class="col-xs-2">
+
+            <input type="checkbox" checked = {{if message.selected "checked" ""}}/>
+
+          </div>
+          <div class="col-xs-2">
+            <!-- starred message -->
+            <i {{action 'toggleStarred' message.id}} class="star fa fa-star{{if message.starred "" "-o"}}"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-11">
+        {{#each message.labels key="@index" as |label|}}
+          <span class="label label-warning">{{label}}</span>
+        {{/each}}
+        <a href="#">
+          {{message.subject}}
+        </a>
+      </div>
+    </div>
+
+    {{#if}}
+      {{expanded-message}}
+    {{/if}}
+
+  {{/each}}
+
+</div>
