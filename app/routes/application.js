@@ -7,7 +7,8 @@ let data = [
       "read": false,
       "starred": true,
       "selected": false,
-      "labels": ["dev", "personal"]
+      "labels": ["dev", "personal"],
+      "body": "This is the message for id 1"
     },
     {
       "id": 2,
@@ -15,7 +16,9 @@ let data = [
       "read": false,
       "starred": false,
       "selected": true,
-      "labels": []
+      "labels": [],
+      "body": "This is the message for id 2"
+
     },
     {
       "id": 3,
@@ -23,7 +26,9 @@ let data = [
       "read": false,
       "starred": true,
       "selected": false,
-      "labels": ["dev"]
+      "labels": ["dev"],
+      "body": "This is the message for id 3"
+
     },
     {
       "id": 4,
@@ -31,7 +36,9 @@ let data = [
       "read": true,
       "starred": false,
       "selected": true,
-      "labels": []
+      "labels": [],
+      "body": "This is the message for id 4"
+
     },
     {
       "id": 5,
@@ -39,7 +46,9 @@ let data = [
       "read": false,
       "starred": false,
       "selected": false,
-      "labels": ["personal"]
+      "labels": ["personal"],
+      "body": "This is the message for id 5"
+
     },
     {
       "id": 6,
@@ -47,7 +56,9 @@ let data = [
       "read": true,
       "starred": true,
       "selected": false,
-      "labels": []
+      "labels": [],
+      "body": "This is the message for id 6"
+
     },
     {
       "id": 7,
@@ -55,7 +66,9 @@ let data = [
       "read": true,
       "starred": false,
       "selected": false,
-      "labels": ["dev", "personal"]
+      "labels": ["dev", "personal"],
+      "body": "This is the message for id 7"
+
     },
     {
       "id": 8,
@@ -63,7 +76,9 @@ let data = [
       "read": true,
       "starred": true,
       "selected": false,
-      "labels": []
+      "labels": [],
+      "body": "This is the message for id 8"
+
     }
   ]
 
