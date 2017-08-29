@@ -21,17 +21,17 @@
         {{/if}}
       </button>
 
-        <button class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Read</button>
-        <button class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Unread</button>
+        <button onclick={{action 'markAsRead'}} class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Read</button>
+        <button onclick={{action 'markAsUnread'}} class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Unread</button>
 
-      <select class="form-control label-select">
+      <select onchange={{action 'applyLabel'}} class="form-control label-select">
         <option>Apply label</option>
         <option value="dev">dev</option>
         <option value="personal">personal</option>
         <option value="gschool">gschool</option>
       </select>
 
-      <select class="form-control label-select">
+      <select onchange={{action 'removeLabel'}} class="form-control label-select">
         <option>Remove label</option>
         <option value="dev">dev</option>
         <option value="personal">personal</option>
@@ -55,12 +55,9 @@
       <div class="col-xs-1">
         <div class="row">
           <div class="col-xs-2">
-
-            <input type="checkbox" checked = {{if message.selected "checked" ""}}/>
-
+            <input onchange={{action 'selectSingleMessage' message.id}} type="checkbox" checked = {{if message.selected "checked" ""}}/>
           </div>
           <div class="col-xs-2">
-            <!-- starred message -->
             <i {{action 'toggleStarred' message.id}} class="star fa fa-star{{if message.starred "" "-o"}}"></i>
           </div>
         </div>
@@ -69,9 +66,9 @@
         {{#each message.labels key="@index" as |label|}}
           <span class="label label-warning">{{label}}</span>
         {{/each}}
-        <a href="#">
+        <span onclick={{action 'openMessage' message.id}}>
           {{message.subject}}
-        </a>
+        </span>
       </div>
     </div>
 
