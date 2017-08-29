@@ -6,11 +6,9 @@
         <span class="badge badge">{{unreadMessages}}</span>
         unread messages
       </p>
-
       <a {{action 'toggleComposeMessage'}} class="btn btn-danger">
         <i class="fa fa-plus"></i>
       </a>
-
       <button onclick={{action 'toggleSelectedAll'}} class="btn btn-default">
         {{#if allSelected}}
           <i class="fa fa-check-square-o"></i>
@@ -20,61 +18,61 @@
           <i class="fa fa-square-o"></i>
         {{/if}}
       </button>
-
         <button onclick={{action 'markAsRead'}} class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Read</button>
         <button onclick={{action 'markAsUnread'}} class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Unread</button>
-
       <select onchange={{action 'applyLabel'}} class="form-control label-select">
         <option>Apply label</option>
         <option value="dev">dev</option>
         <option value="personal">personal</option>
         <option value="gschool">gschool</option>
       </select>
-
       <select onchange={{action 'removeLabel'}} class="form-control label-select">
         <option>Remove label</option>
         <option value="dev">dev</option>
         <option value="personal">personal</option>
         <option value="gschool">gschool</option>
       </select>
-
         <button class="btn btn-default" disabled={{if anySelected "" "disable"}}>
           <i class="fa fa-trash-o"></i>
         </button>
-
     </div>
   </div>
-
   {{#if showComposeMessage}}
     {{compose-message}}
   {{/if}}
   {{#each model as | message |}}
+    {{#bs-accordion as |acc|}}
+      {{#acc.item value=message.id as |aitem|}}
 
-    <!-- if message unread else change unread to read-->
-    <div class="row message {{if message.read "read" "unread"}}">
-      <div class="col-xs-1">
-        <div class="row">
-          <div class="col-xs-2">
-            <input onchange={{action 'selectSingleMessage' message.id}} type="checkbox" checked = {{if message.selected "checked" ""}}/>
+        <div class="{{if message.read "read" "unread"}}">
+          <div class="row message">
+            <div class="col-xs-1">
+              <div class="row">
+                <div class="col-xs-2">
+                  <input onchange={{action 'selectSingleMessage' message.id}} type="checkbox" checked = {{if message.selected "checked" ""}}/>
+                </div>
+                <div class="col-xs-2">
+                  <i {{action 'toggleStarred' message.id}} class="star fa fa-star{{if message.starred "" "-o"}}"></i>
+                </div>
+              </div>
+            </div>
+            <div onclick={{action 'openMessage' message.id}}>
+              {{#aitem.title}}
+                <div class="col-xs-10">
+                  {{#each message.labels key="@index" as |label|}}
+                    <span class="label label-warning">{{label}}</span>
+                  {{/each}}
+                    <span>{{message.subject}}</span>
+                </div>
+              {{/aitem.title}}
+            </div>
           </div>
-          <div class="col-xs-2">
-            <i {{action 'toggleStarred' message.id}} class="star fa fa-star{{if message.starred "" "-o"}}"></i>
-          </div>
+          {{#aitem.body}}
+            {{expanded-message}}
+          {{/aitem.body}}
         </div>
-      </div>
-      <div class="col-xs-11">
-        {{#each message.labels key="@index" as |label|}}
-          <span class="label label-warning">{{label}}</span>
-        {{/each}}
-        <span onclick={{action 'openMessage' message.id}}>
-          {{message.subject}}
-        </span>
-      </div>
-    </div>
-
-    {{#if}}
-      {{expanded-message}}
-    {{/if}}
+      {{/acc.item}}
+    {{/bs-accordion}}
 
   {{/each}}
 

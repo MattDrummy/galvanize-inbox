@@ -21,7 +21,7 @@
   border-top: 1px solid #efefef;
 }
 
-.message.read {
+.read {
   background: #efefef;
 }
 
@@ -74,4 +74,8 @@ footer.spacer {
 
 .fa-close {
   cursor: pointer;
+}
+
+.message-line {
+    display: inline;
 }

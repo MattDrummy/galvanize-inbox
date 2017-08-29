@@ -5,58 +5,32 @@ export default Ember.Controller.extend({
   noneSelected: false,
   anySelected: true,
   showComposeMessage: false,
-  unreadMessages: Ember.computed(function(){
-    return this.get('model').filter(function(e){
-      return e.read === false;
-    }).length;
-  }),
-  numberSelected: Ember.computed(function(){
-    return this.get('modal').filter(function(e){
-      return e.selected === true;
-    }).length;
-  }),
+  unreadMessages: Ember.computed(countUnreadMessages),
+  numberSelected: Ember.computed(countSelectedMessages),
+
   actions: {
+
     toggleStarred(i){
-      if (this.get('model')[i-1].starred === true) {
-        Ember.set(this.get('model')[i-1], 'starred', false)
-      } else {
-        Ember.set(this.get('model')[i-1], 'starred', true)
-      }
+      toggleBoolProperty(this.get('model')[i-1], 'starred')
     },
+
     toggleComposeMessage(){
-      if (this.get('showComposeMessage') === true) {
-        this.set('showComposeMessage', false);
-      } else {
-        this.set('showComposeMessage', true);
-      }
+      toggleParentProperty(this, 'showComposeMessage')
     },
+
     toggleSelectedAll(){
       if (this.get('noneSelected') === false || this.get('anySelected') === true){
-        this.set('allSelected', false);
-        this.set('noneSelected', true);
-        this.set('anySelected', false);
-        this.get('model').forEach((e) => {
-          Ember.set(e, 'selected', false);
-        })
+        selectAllOn(this);
       } else {
-        this.set('noneSelected', false);
-        this.set('allSelected', true);
-        this.set('anySelected', true);
-        for (let i = 0; i < this.get('model').length; i++) {
-          Ember.set(this.get('model')[i], 'selected', true);
-        }
+        selectAllOff(this);
       }
     },
-    selectSingleMessage(id){
-      if (this.get('model')[id-1].selected === true){
-        Ember.set(this.get('model')[id-1], 'selected', false);
-      } else {
-        Ember.set(this.get('model')[id-1], 'selected', true);
-      }
-      let selectedMessages = this.get('model').filter((e) => {
-        return e.selected === true;
-      }).length
 
+    selectSingleMessage(id){
+      toggleBoolProperty(this.get('model')[id-1], 'selected')
+      let selectedMessages = this.get('model').filter(function(e){
+        return e.selected === true;
+      }).length;
       if (selectedMessages === 0) {
         this.set('noneSelected', true);
         this.set('anySelected', false);
@@ -71,45 +45,38 @@ export default Ember.Controller.extend({
         this.set('noneSelected', false);
       }
     },
+
     openMessage(id){
       Ember.set(this.get('model')[id-1], 'read', true);
-      let unread = this.get('model').filter((e) => {
+      let unread = this.get('model').filter(function(e){
         return e.read === false;
-      }).length
+      }).length;
       this.set('unreadMessages', unread);
+      
     },
+
     markAsRead(){
-      let selectedMessages = this.get('model').filter((e) => {
-        return e.selected === true;
-      })
-      selectedMessages.forEach((e) => {
-        Ember.set(e, 'read', true);
-      });
-      let unread = this.get('model').filter((e) => {
+      let messagesArray = returnSelectedMessages(this)
+      setPropertyForEach(messagesArray, 'read', true)
+      let unread = this.get('model').filter(function(e){
         return e.read === false;
-      }).length
+      }).length;
       this.set('unreadMessages', unread);
-
     },
+
     markAsUnread(){
-      let selectedMessages = this.get('model').filter((e) => {
-        return e.selected === true;
-      })
-      selectedMessages.forEach((e) => {
-        Ember.set(e, 'read', false);
-      });
-      let unread = this.get('model').filter((e) => {
+      let messagesArray = returnSelectedMessages(this)
+      setPropertyForEach(messagesArray, 'read', false)
+      let unread = this.get('model').filter(function(e){
         return e.read === false;
-      }).length
+      }).length;
       this.set('unreadMessages', unread);
-
     },
+
     applyLabel(event){
       let label = event.srcElement.value;
-      let selectedMessages = this.get('model').filter((e) => {
-        return e.selected === true;
-      })
-      selectedMessages.forEach((e) => {
+      let messagesArray = returnSelectedMessages(this);
+      messagesArray.forEach((e) => {
         if (!e.labels.includes(label)) {
           let result = [];
           e.labels.forEach((l) => {
@@ -120,12 +87,11 @@ export default Ember.Controller.extend({
         }
       })
     },
+
     removeLabel(event){
       let label = event.srcElement.value;
-      let selectedMessages = this.get('model').filter((e) => {
-        return e.selected === true;
-      })
-      selectedMessages.forEach((e) => {
+      let messagesArray = returnSelectedMessages(this)
+      messagesArray.forEach((e) => {
         if (e.labels.includes(label)){
           let result = [];
           e.labels.forEach((l) => {
@@ -137,6 +103,70 @@ export default Ember.Controller.extend({
         }
       })
     }
+
   }
 
 });
+
+function countUnreadMessages(){
+  return this.get('model').filter(function(e){
+    return e.read === false;
+  }).length;
+}
+
+function countUnreadMessages(){
+  return this.get('model').filter(function(e){
+    return e.read === false;
+  }).length;
+}
+function countSelectedMessages(){
+  return this.get('model').filter(function(e){
+    return e.selected === true;
+  }).length;
+}
+
+function selectAllOn(that) {
+  that.set('allSelected', false);
+  that.set('noneSelected', true);
+  that.set('anySelected', false);
+  that.get('model').forEach((e) => {
+    Ember.set(e, 'selected', false);
+  })
+}
+
+function selectAllOff(that){
+  that.set('noneSelected', false);
+  that.set('allSelected', true);
+  that.set('anySelected', true);
+  that.get('model').forEach((e) => {
+    Ember.set(e, 'selected', true);
+  })
+}
+
+function toggleBoolProperty(object, property) {
+  if (object[property] === true){
+    Ember.set(object, property, false);
+  } else {
+    Ember.set(object, property, true);
+  }
+}
+
+function toggleParentProperty(that, property) {
+  if (that.get(property) === true) {
+    that.set(property, false);
+  } else {
+    that.set(property, true);
+  }
+}
+
+function returnSelectedMessages(that){
+  return that.get('model').filter((e) => {
+    return e.selected === true;
+  })
+}
+
+function setPropertyForEach(array, property, value){
+  return array.forEach((e) => {
+    Ember.set(e, property, value);
+  });
+}
