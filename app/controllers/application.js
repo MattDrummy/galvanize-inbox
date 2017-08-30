@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
     toggleStarred(i){
       toggleBoolProperty(this.get('model')[i-1], 'starred')
     },
-    
+
     selectSingleMessage(id){
       toggleBoolProperty(this.get('model')[id-1], 'selected')
       let selectedMessages = this.get('model').filter(function(e){
@@ -31,24 +31,6 @@ export default Ember.Controller.extend({
       }).length;
       this.set('unreadMessages', unread);
 
-    },
-
-    markAsRead(){
-      let messagesArray = returnSelectedMessages(this)
-      setPropertyForEach(messagesArray, 'read', true)
-      let unread = this.get('model').filter(function(e){
-        return e.read === false;
-      }).length;
-      this.set('unreadMessages', unread);
-    },
-
-    markAsUnread(){
-      let messagesArray = returnSelectedMessages(this)
-      setPropertyForEach(messagesArray, 'read', false)
-      let unread = this.get('model').filter(function(e){
-        return e.read === false;
-      }).length;
-      this.set('unreadMessages', unread);
     },
 
     applyLabel(event){

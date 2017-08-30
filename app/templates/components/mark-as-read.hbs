@@ -1,1 +1,17 @@
-{{yield}}
+<span>
+
+  <button
+    onclick={{action 'markAsRead'}}
+    class="btn btn-default"
+    disabled={{if anySelected "" "disable"}}>
+    Mark As Read
+  </button>
+
+  <button
+    onclick={{action 'markAsUnread'}}
+    class="btn btn-default"
+    disabled={{if anySelected "" "disable"}}>
+    Mark As Unread
+  </button>
+
+</span>

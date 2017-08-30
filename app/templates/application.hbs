@@ -24,11 +24,10 @@
       {{
         mark-as-read
         anySelected=anySelected
-        
+        unreadMessages=unreadMessages
+        model=model
       }}
-      <button onclick={{action 'markAsRead'}} class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Read</button>
-      <button onclick={{action 'markAsUnread'}} class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Unread</button>
-
+      
       <select onchange={{action 'applyLabel'}} class="form-control label-select">
         <option>Apply label</option>
         <option value="dev">dev</option>
