@@ -1,0 +1,15 @@
+<span>
+  <select onchange={{action 'applyLabel'}} disabled={{if anySelected "" "disable"}} class="form-control label-select">
+    <option>Apply label</option>
+    <option value="dev">dev</option>
+    <option value="personal">personal</option>
+    <option value="gschool">gschool</option>
+  </select>
+
+  <select onchange={{action 'removeLabel'}} disabled={{if anySelected "" "disable"}} class="form-control label-select">
+    <option>Remove label</option>
+    <option value="dev">dev</option>
+    <option value="personal">personal</option>
+    <option value="gschool">gschool</option>
+  </select>
+</span>

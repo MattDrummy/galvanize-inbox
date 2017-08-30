@@ -27,20 +27,12 @@
         unreadMessages=unreadMessages
         model=model
       }}
-      
-      <select onchange={{action 'applyLabel'}} class="form-control label-select">
-        <option>Apply label</option>
-        <option value="dev">dev</option>
-        <option value="personal">personal</option>
-        <option value="gschool">gschool</option>
-      </select>
 
-      <select onchange={{action 'removeLabel'}} class="form-control label-select">
-        <option>Remove label</option>
-        <option value="dev">dev</option>
-        <option value="personal">personal</option>
-        <option value="gschool">gschool</option>
-      </select>
+      {{
+        change-labels
+        anySelected=anySelected
+        model=model
+      }}
 
       <button onclick={{action 'deleteMessages'}} class="btn btn-default" disabled={{if anySelected "" "disable"}}>
         <i class="fa fa-trash-o"></i>
