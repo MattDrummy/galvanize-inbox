@@ -16,10 +16,6 @@ export default Ember.Controller.extend({
       toggleBoolProperty(this.get('model')[i-1], 'starred')
     },
 
-    toggleComposeMessage(){
-      toggleParentProperty(this, 'showComposeMessage')
-    },
-
     toggleSelectedAll(){
       if (this.get('noneSelected') === false || this.get('anySelected') === true){
         selectAllOn(this);
@@ -171,14 +167,6 @@ function toggleBoolProperty(object, property) {
     Ember.set(object, property, false);
   } else {
     Ember.set(object, property, true);
-  }
-}
-
-function toggleParentProperty(that, property) {
-  if (that.get(property) === true) {
-    that.set(property, false);
-  } else {
-    that.set(property, true);
   }
 }
 

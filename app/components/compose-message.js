@@ -1,9 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  actions: {
-    test() {
-      this.get('this').set('noMessages', true)
-    }
-  }
+  tagName: 'form',
+  className: ['form-horizontal', 'well'],
 });

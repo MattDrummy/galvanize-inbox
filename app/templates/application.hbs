@@ -7,10 +7,9 @@
         unread messages
       </p>
 
-      <a {{action 'toggleComposeMessage'}} class="btn btn-danger">
-        <i class="fa fa-plus"></i>
-      </a>
+      {{toggle-compose showComposeMessage=showComposeMessage}}
 
+      
       {{#if noMessages}}
 
         <button class="btn btn-default">
@@ -55,13 +54,7 @@
     </div>
   </div>
 
-  {{
-    compose-message
-    showComposeMessage=showComposeMessage
-    model=model
-    this=this
-  }}
-
+  {{compose-message showComposeMessage=showComposeMessage}}
 
   {{#each model as | message |}}
     <div class="{{if message.deleted "deleted" ""}}">
