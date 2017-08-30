@@ -39,7 +39,6 @@
 }
 
 .message-body {
-  background: #ccc;
   margin-left: 0;
   margin-bottom: 1em;
   padding-top: 1em;
@@ -82,4 +81,19 @@ footer.spacer {
 
 .deleted {
   display: none;
+}
+
+.message-body {
+  border: 1px solid black;
+}
+
+.panel-group {
+  margin-bottom: 0;
+}
+.panel-body {
+  background-color: white;
+}
+
+.selected {
+  background-color: rgb(255,255,204);
 }

@@ -1,0 +1,44 @@
+
+      <div>
+        {{#acc.item value=message.id as |aitem|}}
+
+          <div class="{{if message.read "read" "unread"}} {{if message.selected "selected" ""}}">
+            <div class="row message">
+              <div class="col-xs-1">
+                <div class="row">
+
+                  <div class="col-xs-2">
+                    <input onchange={{action 'selectSingleMessage' message.id}} type="checkbox" checked = {{if message.selected "checked" ""}}/>
+                  </div>
+
+                  <div class="col-xs-2">
+                    <i {{action 'toggleStarred' message.id}} class="star fa fa-star{{if message.starred "" "-o"}}"></i>
+                  </div>
+
+                </div>
+              </div>
+              <div onclick={{action 'openMessage' message.id}}>
+
+                {{#aitem.title}}
+                  <div class="col-xs-10">
+                    {{#each message.labels key="@index" as |label|}}
+                      <span class="label label-warning">{{label}}</span>
+                    {{/each}}
+                      <span>{{message.subject}}</span>
+                  </div>
+                {{/aitem.title}}
+
+              </div>
+            </div>
+
+            {{#aitem.body}}
+              <div class="row col-xs-11 col-xs-offset-1 message-body">
+                <p>{{message.body}}</p>
+              </div>
+            {{/aitem.body}}
+
+          </div>
+
+        {{/acc.item}}
+
+      </div>
