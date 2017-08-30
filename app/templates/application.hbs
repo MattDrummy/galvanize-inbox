@@ -7,29 +7,25 @@
         unread messages
       </p>
 
-      {{toggle-compose showComposeMessage=showComposeMessage}}
+      {{
+        toggle-compose
+          showComposeMessage=showComposeMessage
+      }}
 
-      
-      {{#if noMessages}}
+      {{
+        select-all-button
+          noMessages=noMessages
+          allSelected=allSelected
+          anySelected=anySelected
+          noneSelected=noneSelected
+          model=model
+      }}
 
-        <button class="btn btn-default">
-          <i class="fa fa-square-o"></i>
-        </button>
-
-      {{else}}
-
-        <button onclick={{action 'toggleSelectedAll'}} class="btn btn-default">
-          {{#if allSelected}}
-            <i class="fa fa-check-square-o"></i>
-          {{else if anySelected}}
-            <i class="fa fa-minus-square-o"></i>
-          {{else}}
-            <i class="fa fa-square-o"></i>
-          {{/if}}
-        </button>
-
-      {{/if}}
-
+      {{
+        mark-as-read
+        anySelected=anySelected
+        
+      }}
       <button onclick={{action 'markAsRead'}} class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Read</button>
       <button onclick={{action 'markAsUnread'}} class="btn btn-default" disabled={{if anySelected "" "disable"}}>Mark As Unread</button>
 

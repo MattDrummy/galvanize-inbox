@@ -1,0 +1,21 @@
+<span>
+  {{#if noMessages}}
+
+    <button class="btn btn-default">
+      <i class="fa fa-square-o"></i>
+    </button>
+
+  {{else}}
+
+    <button onclick={{action 'toggleSelectedAll'}} class="btn btn-default">
+      {{#if allSelected}}
+        <i class="fa fa-check-square-o"></i>
+      {{else if anySelected}}
+        <i class="fa fa-minus-square-o"></i>
+      {{else}}
+        <i class="fa fa-square-o"></i>
+      {{/if}}
+    </button>
+
+  {{/if}}
+</span>

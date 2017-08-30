@@ -15,15 +15,7 @@ export default Ember.Controller.extend({
     toggleStarred(i){
       toggleBoolProperty(this.get('model')[i-1], 'starred')
     },
-
-    toggleSelectedAll(){
-      if (this.get('noneSelected') === false || this.get('anySelected') === true){
-        selectAllOn(this);
-      } else {
-        selectAllOff(this);
-      }
-    },
-
+    
     selectSingleMessage(id){
       toggleBoolProperty(this.get('model')[id-1], 'selected')
       let selectedMessages = this.get('model').filter(function(e){
