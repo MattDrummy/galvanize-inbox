@@ -51,7 +51,3 @@ function toggleBoolProperty(object, property) {
     Ember.set(object, property, true);
   }
 }
-
-function checkSelectedState(selectedMessages, that) {
-
-}

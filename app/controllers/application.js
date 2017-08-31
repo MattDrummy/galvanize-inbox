@@ -15,11 +15,7 @@ export default Ember.Controller.extend({
     return this.get('model').filter(function(e){
       return e.selected === true;
     }).length;
-  }),
+  })
 
-  actions: {
-    controllerCheck(){
-      console.log("TEST");
-    }
-  }
+  
 });
