@@ -1,8 +1,10 @@
 # galvanize-inbox
 
 This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
 
+An exercise, and my first Ember App, learning ember and creating a functioning inbox using Ember
+
+deployed Firebase site: [HERE](https://galvanize-inbox.firebaseapp.com/)
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
